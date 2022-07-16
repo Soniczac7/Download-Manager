@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "DownloadManagerInstaller": {
+      "commandName": "Project"
+    },
+    "DownloadManagerInstaller Update": {
+      "commandName": "Executable",
+      "executablePath": "D:\\DownloadManager\\DownloadManagerInstaller\\bin\\Debug\\net6.0-windows\\DownloadManagerInstaller.exe",
+      "commandLineArgs": "--update"
+    },
+    "DownloadManagerInstaller Silent": {
+      "commandName": "Executable",
+      "executablePath": "D:\\DownloadManager\\DownloadManagerInstaller\\bin\\Debug\\net6.0-windows\\DownloadManagerInstaller.exe",
+      "commandLineArgs": "--install"
+    }
+  }
+}

@@ -74,6 +74,12 @@ namespace DownloadManager
                     Logging._instance.Invoke((MethodInvoker)delegate
                     {
                         Log("Request received for URL: " + url, Color.Black);
+                        if (Settings1.Default.downloadHistory.Contains(url) == false)
+                        {
+                            DownloadForm._instance.textBox1.Items.Add(url);
+                            Settings1.Default.downloadHistory.Add(url);
+                            Settings1.Default.Save();
+                        }
                         DownloadProgress downloadProgress = new DownloadProgress(url, Settings1.Default.defaultDownload, "", 0);
                         downloadProgress.Show();
                         //Log("--- Start Request ---", Color.Black);

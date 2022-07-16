@@ -28,6 +28,10 @@ chrome.webRequest.onHeadersReceived.addListener(function (details) {
       console.log("Blocking request.");
       return {redirectUrl: "http://robwu.nl/204" };
     }
+    else if (details.url.indexOf(".img") >= 0) {
+        console.log("Blocking request.");
+        return { redirectUrl: "http://robwu.nl/204" };
+    }
     else if(details.url.indexOf(".exe") >=0){
       console.log("Blocking request.");
       return {redirectUrl: "http://robwu.nl/204" };
@@ -132,6 +136,10 @@ chrome.webRequest.onBeforeRequest.addListener(
         else if(details.url.indexOf(".iso") >=0){
           console.log("Request url contains .iso which is a download type. Sending to Download Manager.");
           httpGet('http://localhost:65535/?url="' + details.url + '"');
+        }
+        else if (details.url.indexOf(".img") >= 0) {
+            console.log("Request url contains .iso which is a download type. Sending to Download Manager.");
+            httpGet('http://localhost:65535/?url="' + details.url + '"');
         }
         else if(details.url.indexOf(".exe") >=0){
           console.log("Request url contains .exe which is a download type. Sending to Download Manager.");

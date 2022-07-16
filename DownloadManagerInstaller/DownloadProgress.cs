@@ -26,11 +26,13 @@ namespace DownloadManagerInstaller
         );
         #endregion
 
+        string hash;
         string url;
         string location;
         string fileName;
         bool isUrlInvalid = false;
-        bool downloading = true;
+        public bool downloading = true;
+        public bool error = false;
         WebClient client = new WebClient();
 
         //Disable close button
@@ -45,9 +47,11 @@ namespace DownloadManagerInstaller
             }
         }
 
-        public DownloadProgress(string urlArg, string locationArg)
+        public DownloadProgress(string urlArg, string locationArg, string hashArg)
         {
             InitializeComponent();
+            client.Headers.Add("Cache-Control", "no-cache");
+            client.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
             textBox1.Text = urlArg;
             if (!locationArg.EndsWith("\\"))
@@ -59,6 +63,7 @@ namespace DownloadManagerInstaller
                 location = locationArg;
             }
             url = urlArg;
+            hash = hashArg;
         }
 
         private void progress_Load(object sender, EventArgs e)
@@ -73,6 +78,8 @@ namespace DownloadManagerInstaller
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Download Manager - Error Fetching File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+                    downloading = false;
                     if (this.IsHandleCreated == true)
                     {
                         Invoke(new MethodInvoker(delegate ()
@@ -103,6 +110,8 @@ namespace DownloadManagerInstaller
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Download Manager - Download Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    error = true;
+                    downloading = false;
                     Invoke(new MethodInvoker(delegate ()
                     {
                         client.CancelAsync();
@@ -123,31 +132,36 @@ namespace DownloadManagerInstaller
             {
                 try
                 {
-                    Invoke(new MethodInvoker(delegate ()
+                    if (IsHandleCreated)
                     {
-                        progressBar1.Minimum = 0;
-                        double receive = double.Parse(e.BytesReceived.ToString());
-                        double total = double.Parse(e.TotalBytesToReceive.ToString());
-                        double percentage = receive / total * 100;
-                        label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
-                        try
+                        Invoke(new MethodInvoker(delegate ()
                         {
-                            progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            if (isUrlInvalid == false)
+                            progressBar1.Minimum = 0;
+                            double receive = double.Parse(e.BytesReceived.ToString());
+                            double total = double.Parse(e.TotalBytesToReceive.ToString());
+                            double percentage = receive / total * 100;
+                            label3.Text = "Percentage Complete: " + $"{string.Format("{0:0.##}", percentage)}%";
+                            try
                             {
-                                isUrlInvalid = true;
-                                MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                client.Dispose();
-                                this.Close();
-                                this.Dispose();
-                                return;
+                                progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
                             }
-                            else { }
-                        }
-                    }));
+                            catch (Exception ex)
+                            {
+                                if (isUrlInvalid == false)
+                                {
+                                    isUrlInvalid = true;
+                                    error = true;
+                                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    downloading = false;
+                                    client.Dispose();
+                                    this.Close();
+                                    this.Dispose();
+                                    return;
+                                }
+                                else { }
+                            }
+                        }));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -159,52 +173,71 @@ namespace DownloadManagerInstaller
 
         private void Client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            if (this.IsHandleCreated)
+            if (hash != "" && hash != null)
             {
-                try
+                if (this.IsHandleCreated)
                 {
-                    Invoke(new MethodInvoker(delegate ()
+                    try
                     {
-                        byte[] fileData = File.ReadAllBytes(location + fileName);
-                        byte[] myHash = MD5.Create().ComputeHash(fileData);
-                        StringBuilder result = new StringBuilder(myHash.Length * 2);
-
-                        for (int i = 0; i < myHash.Length; i++)
+                        Invoke(new MethodInvoker(delegate ()
                         {
-                            result.Append(myHash[i].ToString(false ? "X2" : "x2"));
-                        }
+                            byte[] fileData = File.ReadAllBytes(location + fileName);
+                            byte[] myHash = MD5.Create().ComputeHash(fileData);
+                            StringBuilder result = new StringBuilder(myHash.Length * 2);
 
-                        if (result.ToString() == "16bea09b03d106138b4aaad4e7a42829")
-                        {
-                            // Success
-                            downloading = false;
-                            progressBar1.Style = ProgressBarStyle.Blocks;
-                            progressBar1.Value = 100;
-                            client.CancelAsync();
-                            client.Dispose();
-                            Form1._instance.LicenseDownloaded(System.IO.Path.GetTempPath() + fileName);
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
-                        else
-                        {
-                            // Fail
-                            Form1._instance.LicenseFailed();
-                            client.CancelAsync();
-                            client.Dispose();
-                            this.Close();
-                            this.Dispose();
-                            return;
-                        }
+                            for (int i = 0; i < myHash.Length; i++)
+                            {
+                                result.Append(myHash[i].ToString(false ? "X2" : "x2"));
+                            }
 
-
-                    }));
+                            if (result.ToString() == hash)
+                            {
+                                // Success
+                                downloading = false;
+                                progressBar1.Style = ProgressBarStyle.Blocks;
+                                progressBar1.Value = 100;
+                                client.CancelAsync();
+                                client.Dispose();
+                                Form1._instance.LicenseDownloaded(System.IO.Path.GetTempPath() + fileName);
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                            else
+                            {
+                                // Fail
+                                downloading = false;
+                                Form1._instance.LicenseFailed();
+                                client.CancelAsync();
+                                client.Dispose();
+                                this.Close();
+                                this.Dispose();
+                                return;
+                            }
+                        }));
+                    }
+                    catch (Exception ex)
+                    {
+                        error = true;
+                        MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        downloading = false;
+                    }
                 }
-                catch (Exception ex)
+            }
+            else
+            {
+                Invoke(new MethodInvoker(delegate ()
                 {
-                    MessageBox.Show(ex.Message, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    // Success
+                    downloading = false;
+                    progressBar1.Style = ProgressBarStyle.Blocks;
+                    progressBar1.Value = 100;
+                    client.CancelAsync();
+                    client.Dispose();
+                    this.Close();
+                    this.Dispose();
+                    return;
+                }));
             }
         }
 

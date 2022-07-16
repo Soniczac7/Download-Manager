@@ -274,7 +274,6 @@
             this.progressBar1.Size = new System.Drawing.Size(462, 10);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 22;
-            this.progressBar1.Visible = false;
             // 
             // HashCalculator
             // 

@@ -76,6 +76,11 @@ This cannot be changed at the moment as the browser extention does not yet suppo
 This feature may become available in the future.
 The default value for this setting is 65535.</value>
   </data>
+  <data name="label13.ToolTip" xml:space="preserve">
+    <value>Whenever you download a file in Download Manager the URL of that file goes into your history. 
+The download history is not shared with anyone.
+You can clear your whole history or remove specific items of your history with the history editor.</value>
+  </data>
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>114, 17</value>
   </metadata>

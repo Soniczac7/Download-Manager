@@ -37,6 +37,14 @@ namespace DownloadManager
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             browserIntercept.StartServer();
+            if (Settings1.Default.downloadHistory != null)
+            {
+                foreach (var item in Settings1.Default.downloadHistory)
+                {
+                    Application.DoEvents();
+                    textBox1.Items.Add(item);
+                }
+            }
             textBox2.Text = Settings1.Default.defaultDownload;
             Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 10, 10));
         }
@@ -62,8 +70,15 @@ namespace DownloadManager
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (!textBox1.Items.Contains(textBox1.Text))
+            {
+                textBox1.Items.Add(textBox1.Text);
+                Settings1.Default.downloadHistory.Add(textBox1.Text);
+                Settings1.Default.Save();
+            }
             DownloadProgress downloadProgress = new DownloadProgress(textBox1.Text, textBox2.Text, textBox3.Text, comboBox1.SelectedIndex);
             downloadProgress.Show();
+            textBox1.Text = "";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -106,8 +121,15 @@ namespace DownloadManager
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
-                hashCalc.Show();
+                try
+                {
+                    HashCalculator hashCalc = new HashCalculator(openFileDialog1.FileName);
+                    hashCalc.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + Environment.NewLine + ex.StackTrace, "Download Manager - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -137,21 +159,15 @@ namespace DownloadManager
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
             // Exit
-            browserIntercept.httpServer.Close();
-            try
-            {
-                browserIntercept.thread.Abort();
-            }
-            catch { }
-            Process.GetCurrentProcess().Kill();
+            Environment.Exit(0);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
-                FileName = "explorer.exe",
-                Arguments = installationPath,
+                FileName = "https://microsoftedge.microsoft.com/addons/detail/download-manager/facopbimneimllhcabghncloejfeficd?hl=en-GB",
+                Arguments = "",
                 UseShellExecute = true,
                 RedirectStandardError = false,
                 RedirectStandardInput = false,
@@ -160,9 +176,6 @@ namespace DownloadManager
             Process process = new Process();
             process.StartInfo = startInfo;
             process.Start();
-
-            InstallExtention installGuide = new InstallExtention();
-            installGuide.Show();
         }
     }
 }

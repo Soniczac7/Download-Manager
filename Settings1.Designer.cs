@@ -58,5 +58,16 @@ namespace DownloadManager {
                 this["keepOnTop"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection downloadHistory {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["downloadHistory"]));
+            }
+            set {
+                this["downloadHistory"] = value;
+            }
+        }
     }
 }

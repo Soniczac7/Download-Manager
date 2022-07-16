@@ -41,6 +41,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -51,6 +57,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -165,6 +180,7 @@
             // 
             this.help1.AutoSize = true;
             this.help1.Cursor = System.Windows.Forms.Cursors.Help;
+            this.help1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.help1.ForeColor = System.Drawing.SystemColors.GrayText;
             this.help1.Location = new System.Drawing.Point(166, 47);
             this.help1.Name = "help1";
@@ -179,6 +195,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label2.Location = new System.Drawing.Point(270, 101);
             this.label2.Name = "label2";
@@ -191,6 +208,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.SystemColors.GrayText;
             this.label4.Location = new System.Drawing.Point(177, 149);
             this.label4.Name = "label4";
@@ -212,6 +230,78 @@
             this.label6.TabIndex = 30;
             this.label6.Text = "?";
             this.toolTip1.SetToolTip(this.label6, resources.GetString("label6.ToolTip"));
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(744, 247);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(43, 23);
+            this.button6.TabIndex = 33;
+            this.button6.Text = "Set";
+            this.toolTip1.SetToolTip(this.button6, "Creates the start menu shortcut for Download Manager.");
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(679, 247);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(59, 23);
+            this.button7.TabIndex = 34;
+            this.button7.Text = "Remove";
+            this.toolTip1.SetToolTip(this.button7, "Removes the start menu shortcut for Download Manager.");
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(679, 273);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(59, 23);
+            this.button8.TabIndex = 36;
+            this.button8.Text = "Remove";
+            this.toolTip1.SetToolTip(this.button8, "Removes the desktop shortcut for Download Manager.");
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(744, 273);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(43, 23);
+            this.button9.TabIndex = 35;
+            this.button9.Text = "Set";
+            this.toolTip1.SetToolTip(this.button9, "Creates the desktop shortcut for Download Manager.");
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label11.Location = new System.Drawing.Point(95, 303);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(12, 15);
+            this.label11.TabIndex = 39;
+            this.label11.Text = "?";
+            this.toolTip1.SetToolTip(this.label11, "When checked Download Manager will run for all users when the computer starts.\r\nN" +
+        "ote: This option requires administrator permissions.");
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Cursor = System.Windows.Forms.Cursors.Help;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label13.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.label13.Location = new System.Drawing.Point(114, 341);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(12, 15);
+            this.label13.TabIndex = 43;
+            this.label13.Text = "?";
+            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
             // 
             // label1
             // 
@@ -315,11 +405,111 @@
             this.label7.TabIndex = 28;
             this.label7.Text = "Internal Server Port";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 251);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(139, 15);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "Start Menu Shortcut: null";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 277);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(124, 15);
+            this.label9.TabIndex = 32;
+            this.label9.Text = "Desktop Shortcut: null";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 303);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(81, 15);
+            this.label10.TabIndex = 37;
+            this.label10.Text = "Run at startup";
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(18, 321);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 14);
+            this.checkBox3.TabIndex = 38;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(14, 426);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(71, 15);
+            this.label12.TabIndex = 40;
+            this.label12.Text = "Version: null";
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(668, 415);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(120, 23);
+            this.button10.TabIndex = 41;
+            this.button10.Text = "Check for updates";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(14, 341);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(102, 15);
+            this.label14.TabIndex = 42;
+            this.label14.Text = "Download History";
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(122, 359);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(75, 23);
+            this.button11.TabIndex = 45;
+            this.button11.Text = "Clear";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(18, 359);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(98, 23);
+            this.button12.TabIndex = 46;
+            this.button12.Text = "History Editor";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.button10);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label7);
@@ -370,5 +560,20 @@
         private Label label6;
         private NumericUpDown numericUpDown1;
         private Label label7;
+        private Label label8;
+        private Label label9;
+        private Button button6;
+        private Button button7;
+        private Button button8;
+        private Button button9;
+        private Label label10;
+        private CheckBox checkBox3;
+        private Label label11;
+        private Label label12;
+        private Button button10;
+        private Label label13;
+        private Label label14;
+        private Button button11;
+        private Button button12;
     }
 }
